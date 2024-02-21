@@ -1,7 +1,5 @@
--- creates a database hbnb_dev_db
--- creates a new user hbnb_dev in localhost
+-- creates a database and user
 -- grants priviledges to database hbhb_dev_db
--- grants SELECT priviledge to database performance_schema
 -- database and user shouldn't fail if already exists
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
 CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
