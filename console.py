@@ -127,7 +127,7 @@ class HBNBCommand(cmd.Cmd):
         if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        
+
         _class = HBNBCommand.classes[class_name]
         obj = _class()
 
@@ -140,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
                         value = eval(pair[1])
                     except (SyntaxError, NameError):
                         value = pair[1]
-                    setattr(obj, pair[0], value)      
+                    setattr(obj, pair[0], value)
 
         storage.save()
         print(obj.id)
@@ -339,6 +339,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
