@@ -118,6 +118,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """ Create an object of any class"""
+        # this is much better than the args.split() as it creates tokens 
         args_list = shlex.split(arg)
         if len(args_list) == 0:
             print("** class name missing **")
