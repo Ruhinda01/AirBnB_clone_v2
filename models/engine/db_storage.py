@@ -34,22 +34,22 @@ class DBStorage:
     
     def all(self, cls=None):
         """Query om the database session"""
-        result= {}
-        objs = None
+        result = {}
+        objs = []
         if cls:
             if isinstance(cls, str) and cls in classes:
                 cls = classes[cls]
-            objs = self.__session.query(cls).all()
+            objs.extend(self.__session.query(cls).all())
         else:
-            clsses_to_query = [User, State, City, Amenity, Place, Review]
-            for cls_to_query in clsses_to_query:
-                objs = self.__session.query(cls_to_query).all()
-        
+            classes_to_query = [User, City, State, Amenity, Place, Review]
+            for cls_to_query in classes_to_query:
+                objs.extend(self.__session.query(cls_to_query).all())
+
         for obj in objs:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             result[key] = obj
         return (result)
-    
+
     def new(self, obj):
         """Adds a new object to the current database session"""
         self.__session.add(obj)
@@ -74,3 +74,4 @@ class DBStorage:
     def close(self):
        """Close session"""
        self.__session.close()
+
