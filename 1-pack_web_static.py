@@ -12,7 +12,7 @@ def do_pack():
     """
     Pack web_static content
     """
-    local("mkdir -p versions") 
+    local("mkdir -p versions")
     current_datetime = datetime.now()
     formatted_datetime = current_datetime.strftime("%Y%m%d%H%M%S")
     path = "versions/web_static_" + formatted_datetime + ".tgz"
