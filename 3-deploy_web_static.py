@@ -52,19 +52,21 @@ def do_deploy(archive_path):
 
     if put(archive_path, "/tmp/").failed:
         return False
-    if run("mkdir -p {}{}/".format(path, no_exten)).failed:
+    if run("sudo mkdir -p {}{}/".format(path, no_exten)).failed:
         return False
-    if run("tar -xzf /tmp/{} -C {}{}/".format(name, path, no_exten)).failed:
+    if run("sudo tar -xzf /tmp/{} -C {}{}/".
+            format(name, path, no_exten)).failed:
         return False
-    if run("rm /tmp/{}".format(name)).failed:
+    if run("sudo rm /tmp/{}".format(name)).failed:
         return False
-    if run("mv {0}{1}/web_static/* {0}{1}/".format(path, no_exten)).failed:
+    if run("sudo mv {0}{1}/web_static/* {0}{1}/".
+            format(path, no_exten)).failed:
         return False
-    if run("rm -rf {}{}/web_static".format(path, no_exten)).failed:
+    if run("sudo rm -rf {}{}/web_static".format(path, no_exten)).failed:
         return False
-    if run("rm -rf /data/web_static/current").failed:
+    if run("sudo rm -rf /data/web_static/current").failed:
         return False
-    if run("ln -s {}{}/ /data/web_static/current".
+    if run("sudo ln -s {}{}/ /data/web_static/current".
             format(path, no_exten)).failed:
         return False
     return True
