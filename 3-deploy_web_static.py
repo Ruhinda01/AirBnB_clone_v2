@@ -40,7 +40,7 @@ def do_deploy(archive_path):
     name = archive_path.split("/")[1]
     no_exten = name.split(".")[0]
 
-    if put(archive_p ath, "/tmp/").failed:
+    if put(archive_path, "/tmp/").failed:
         return False
     if run("mkdir -p {}{}/".format(path, no_exten)).failed:
         return False
