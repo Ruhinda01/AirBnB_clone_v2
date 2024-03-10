@@ -12,6 +12,17 @@ from datetime import datetime
 env.hosts = ['54.237.97.154', '54.224.31.23']
 
 
+
+def deploy():
+    """
+    Creates and distributes an archive
+    """
+    archive_path = do_pack()
+    if not archive_path:
+        return False
+    return do_deploy(archive_path)
+
+
 def do_pack():
     """
     Pack web_static content
@@ -33,7 +44,7 @@ def do_deploy(archive_path):
     Arg:
         archive_path (file)
     """
-    if os.path.exists(archive_path) is False:
+    if not os.path.exists(archive_path):
         return False
 
     path = "/data/web_static/releases/"
@@ -58,13 +69,3 @@ def do_deploy(archive_path):
             format(path, no_exten)).failed:
         return False
     return True
-
-
-def deploy():
-    """
-    Creates and distributes an archive
-    """
-    path = do_pack()
-    if path is None:
-        return False
-    return do_deploy(path)
