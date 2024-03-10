@@ -12,7 +12,6 @@ from datetime import datetime
 env.hosts = ['54.237.97.154', '54.224.31.23']
 
 
-
 def deploy():
     """
     Creates and distributes an archive
