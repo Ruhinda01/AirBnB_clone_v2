@@ -67,4 +67,5 @@ def do_deploy(archive_path):
     if run("ln -s {}{}/ /data/web_static/current".
             format(path, no_exten)).failed:
         return False
+    print('New version deployed')
     return True
