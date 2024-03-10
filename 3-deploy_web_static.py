@@ -22,9 +22,9 @@ def do_pack():
     path = "versions/web_static_" + formatted_datetime + ".tgz"
     cmd = "tar -cvzf {} web_static".format(path)
 
-    if local(cmd):
-        return path
-    return None
+    if local(cmd).failed:
+        return None
+    return path
 
 
 def do_deploy(archive_path):
@@ -37,10 +37,10 @@ def do_deploy(archive_path):
         return False
 
     path = "/data/web_static/releases/"
-    name = archive_path.split("/")[-1]
-    no_exten = name.rsplit(".", 1)[0]
+    name = archive_path.split("/")[1]
+    no_exten = name.split(".")[0]
 
-    if put(archive_path, "/tmp/").failed:
+    if put(archive_p ath, "/tmp/").failed:
         return False
     if run("mkdir -p {}{}/".format(path, no_exten)).failed:
         return False
