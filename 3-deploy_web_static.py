@@ -43,12 +43,12 @@ def do_deploy(archive_path):
     Arg:
         archive_path (file)
     """
-    if not os.path.exists(archive_path):
+    if os.path.exists(archive_path) is False:
         return False
 
     path = "/data/web_static/releases/"
-    name = archive_path.split("/")[1]
-    no_exten = name.split(".")[0]
+    name = archive_path.split("/")[-1]
+    no_exten = name.rsplit(".", 1)[0]
 
     if put(archive_path, "/tmp/").failed:
         return False
@@ -67,5 +67,4 @@ def do_deploy(archive_path):
     if run("ln -s {}{}/ /data/web_static/current".
             format(path, no_exten)).failed:
         return False
-    print('New version deployed')
     return True
