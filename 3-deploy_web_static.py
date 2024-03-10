@@ -17,7 +17,7 @@ def deploy():
     Creates and distributes an archive
     """
     archive_path = do_pack()
-    if not archive_path:
+    if os.path.exists(archive_path) is False:
         return False
     return do_deploy(archive_path)
 
