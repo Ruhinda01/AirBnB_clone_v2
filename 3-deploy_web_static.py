@@ -16,7 +16,7 @@ def deploy():
     Creates and distributes an archive
     """
     archive_path = do_pack()
-    if exists(archive_path) is False:
+    if archive_path is None:
         return False
     return do_deploy(archive_path)
 
@@ -28,12 +28,11 @@ def do_pack():
     try:
         if isdir("versions") is False:
             local("mkdir versions")
-        current_datetime = datetime.now()
-        formatted_datetime = current_datetime.strftime("%Y%m%d%H%M%S")
-        path = "versions/web_static_" + formatted_datetime + ".tgz"
-        cmd = "tar -cvzf {} web_static".format(path)
+        date = datetime.now().strftime("%Y%m%d%H%M%S")
+        path = "versions/web_static_{}.tgz".format(date)
+        local("tar -cvzf {} web_static".format(path))
         return path
-    except:
+    except Exception as ex:
         return None
 
 
@@ -59,5 +58,5 @@ def do_deploy(archive_path):
         run('rm -rf /data/web_static/current')
         run('ln -s {}{}/ /data/web_static/current'.format(path, no_exten))
         return True
-    except:
+    except BaseException:
         return False
