@@ -28,10 +28,10 @@ class DBStorage:
 
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
             user, passwd, host, dbase), pool_pre_ping=True)
-        
+
         if os.getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(bind=self.__engine)
-    
+
     def all(self, cls=None):
         """Query om the database session"""
         result = {}
@@ -53,16 +53,16 @@ class DBStorage:
     def new(self, obj):
         """Adds a new object to the current database session"""
         self.__session.add(obj)
-    
+
     def save(self):
         """Commits all changes of the current database session"""
         self.__session.commit()
-    
+
     def delete(self, obj=None):
         """Deletes from the current database session"""
         if obj is not None:
             self.__session.delete(obj)
-    
+
     def reload(self):
         """Creates all tables and current session"""
         Base.metadata.create_all(self.__engine)
@@ -70,11 +70,11 @@ class DBStorage:
                                        expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
-    
+
     def close(self):
-       """
-       Calls remove() method on the
-       private session attribute (self.__session)
-       or close() on the class Session
-       """
-       self.__session.close()
+        """
+        Calls remove() method on the
+        private session attribute (self.__session)
+        or close() on the class Session
+        """
+        self.__session.close()
