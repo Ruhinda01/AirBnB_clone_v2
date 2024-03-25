@@ -60,3 +60,10 @@ class FileStorage:
         key_to_delete = "{}.{}".format(obj.__class__.__name__, obj.id)
         if key_to_delete in FileStorage.__objects:
             del FileStorage.__objects[key_to_delete]
+    
+    def close(self):
+        """
+        Calls reload() method for
+        deserializing the JSON file to objects
+        """
+        self.reload()
